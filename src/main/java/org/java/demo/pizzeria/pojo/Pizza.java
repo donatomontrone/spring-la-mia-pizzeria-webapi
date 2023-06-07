@@ -5,9 +5,12 @@ import java.util.List;
 
 import org.hibernate.validator.constraints.URL;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -46,9 +49,10 @@ public class Pizza {
 	private Integer price;
 	
 	@OneToMany(mappedBy = "pizza", cascade = CascadeType.REMOVE)
+	@JsonManagedReference
 	private List<SpecialOffer> specialOffers;
 	
-	@ManyToMany(cascade = CascadeType.DETACH)
+	@ManyToMany
 	private List<Ingredient> ingredients;
 	
 	public Pizza() {}

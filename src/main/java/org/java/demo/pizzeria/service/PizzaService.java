@@ -19,6 +19,12 @@ public class PizzaService {
 	
 	public List<Pizza> findAll() {
 		
+		List<Pizza> lists = pizzaRepository.findAll();
+		for (Pizza p : lists) {
+			Hibernate.initialize(p.getSpecialOffers());
+			Hibernate.initialize(p.getIngredients());
+		}
+		
 		return pizzaRepository.findAll();
 	}
 	public Pizza save(Pizza pizza) {

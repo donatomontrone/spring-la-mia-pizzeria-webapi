@@ -8,7 +8,6 @@ import org.java.demo.pizzeria.pojo.Pizza;
 import org.java.demo.pizzeria.pojo.SpecialOffer;
 import org.java.demo.pizzeria.service.IngredientService;
 import org.java.demo.pizzeria.service.PizzaService;
-import org.java.demo.pizzeria.service.SpecialOfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,14 +24,13 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/pizzas")
 public class PizzaController {
+	
+	
 	@Autowired
 	private PizzaService pizzaService;
 	
 	@Autowired
 	private IngredientService ingredientService;
-	
-	@Autowired
-	private SpecialOfferService specialOfferService;
 	
 	@GetMapping
 	public String index(Model model) {
