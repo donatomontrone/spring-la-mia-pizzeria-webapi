@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+	</head>
+
+	<body>
+		<nav th:fragment="header">
+			<div class="container-fluid">
+				<div class="row align-items-center justify-content-center justify-content-md-between"  sec:authorize="isAuthenticated()">
+					<div class="col-md-6">
+						<a class="navbar-brand" th:href="@{/}">
+							<img src="https://www.lievito72.it/wp-content/uploads/2022/07/Logo-Lievito72.png" class="mt-2" alt="Logo" width="250" height="55">
+						</a>
+					</div>
+					<div class="mb-4 mb-md-0 col-md-4">
+						<form class="d-flex" method="POST" th:action="@{/pizzas}">
+							<input type="text" class="form-control" th:value="${name}" name="name">
+							<button class="btn btn-sm btn-dark mx-2" type="submit"><i
+									class="fa-solid fa-magnifying-glass"></i></button>
+									<a class="btn btn-outline-dark" th:href="@{/logout}">
+							Esci 
+						</a>
+						</form>
+					</div>
+				</div>
+				<div class="row align-items-center justify-content-between"  sec:authorize="!isAuthenticated()">
+					<div class="col-8">
+						<a class="navbar-brand" th:href="@{/}">
+							<img src="https://www.lievito72.it/wp-content/uploads/2022/07/Logo-Lievito72.png" class="mt-2" alt="Logo" width="250" height="55">
+						</a>
+					</div>
+					<div class="col-4 text-end pe-2">
+						<a class="btn btn-outline-dark" th:href="@{/login}">
+							Login <i class="fa-solid fa-right-to-bracket"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</body>
+
+</html>
