@@ -8,7 +8,10 @@
         </div>
     </div>
     <div v-if="isEmpty">{{ message }}</div>
-    <div v-else v-for="pizza in pizzas"> {{ pizza.name }} </div>
+    <div v-else v-for="pizza in pizzas">
+        <span> {{ pizza.name }} <button class="text-danger" @click="deletePizza(pizza.id)"> elimina </button>
+        </span>
+    </div>
 </template>
 <script>
 import axios from "axios";
@@ -20,6 +23,7 @@ export default {
             message: "",
             isEmpty: true,
             name: "",
+            isDeleted: false
         }
     },
     methods: {
@@ -46,7 +50,17 @@ export default {
                 .catch((error) => {
                     console.log(error)
                 })
-
+        },
+        deletePizza(id) {
+            console.log('id' + id);
+            axios.delete(API_URL + '/pizzas/' + id)
+                .then((response) => {
+                    console.log(response)
+                    this.isDeleted = true
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
         }
     },
     mounted() {
