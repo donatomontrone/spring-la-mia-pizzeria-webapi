@@ -2,8 +2,7 @@ package org.java.demo.pizzeria.pojo;
 
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,7 +18,6 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.AssertTrue;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class SpecialOffer {
 	
 	@Id
@@ -41,6 +39,7 @@ public class SpecialOffer {
 	private Integer discountPerc;
 	
 	@ManyToOne
+	@JsonBackReference
 	private Pizza pizza;
 	
 	public SpecialOffer() {}

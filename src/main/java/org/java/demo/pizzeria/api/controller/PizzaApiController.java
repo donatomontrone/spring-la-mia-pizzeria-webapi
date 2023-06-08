@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -36,14 +35,9 @@ public class PizzaApiController {
 		if (name == null || name.isEmpty()) {
 			pizzas = pizzaService.findAll();
 		} else {
-
 			pizzas = pizzaService.findBySearch(name);
 		}
-		
-		if (pizzas.size() <= 0) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-		
+
 		return new ResponseEntity<>(pizzas, HttpStatus.OK);
 	}
 	
@@ -52,7 +46,7 @@ public class PizzaApiController {
 		
 		Optional<Pizza> oPizza = pizzaService.findById(id);
 		
-		if (!oPizza.isPresent()) {
+		if (oPizza.isEmpty()) {
 			
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);	
 		}
@@ -62,7 +56,7 @@ public class PizzaApiController {
 	}
 	
 	@PostMapping("/create")
-	public ResponseEntity<Object> create(
+	public ResponseEntity<Pizza> create(
 			@RequestBody Pizza pizza){
 
 		
@@ -91,6 +85,7 @@ public class PizzaApiController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);	
 		}
 			Pizza pizza = oPizza.get();
+			pizza.getIngredients().clear();
 			pizzaService.delete(pizza);
 			return new ResponseEntity<>("pizza deleted succesfully", HttpStatus.OK);
 		

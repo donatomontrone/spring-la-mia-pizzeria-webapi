@@ -5,9 +5,7 @@ import java.util.List;
 
 import org.hibernate.validator.constraints.URL;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -24,7 +22,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Pizza {
 	
 	@Id
@@ -117,13 +114,12 @@ public class Pizza {
 	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}
-
+	@JsonSetter
 	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
 	
 	//Con questa funzione possiamo passare un array e trasformarlo poi in una Collection di Ingredients
-	@JsonIgnore
 	public void setIngredients(Ingredient[] ingredients) {
 
 		setIngredients(Arrays.asList(ingredients));

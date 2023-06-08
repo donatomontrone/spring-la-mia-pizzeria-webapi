@@ -54,7 +54,7 @@ public class PizzaController {
 	public String show(Model model, 
 			@PathVariable("id") Integer id) {
 		
-		Optional<Pizza> oPizza = pizzaService.findByIdwithIngredientsAndOffer(id);
+		Optional<Pizza> oPizza = pizzaService.findById(id);
 		Pizza pizza = oPizza.get();
 		List<SpecialOffer> specialOffers = pizza.getSpecialOffers();
 		List<Ingredient> ingredients = pizza.getIngredients();
@@ -91,7 +91,7 @@ public class PizzaController {
 	public String edit(Model model, 
 			@PathVariable("id") Integer id) {
 		
-		Optional<Pizza> oPizza = pizzaService.findByIdwithIngredients(id);
+		Optional<Pizza> oPizza = pizzaService.findById(id);
 		Pizza pizza = oPizza.get();
 		List<Ingredient> ingredients = ingredientService.findAll();
 		model.addAttribute("pizza", pizza);
@@ -116,10 +116,10 @@ public class PizzaController {
 	
 	@GetMapping("/delete/{id}")
 	public String delete(@PathVariable("id") Integer id) {
-		Optional<Pizza> pizzaOpt = pizzaService.findByIdwithIngredientsAndOffer(id);
+		Optional<Pizza> pizzaOpt = pizzaService.findById(id);
 		Pizza pizza = pizzaOpt.get();
 
-	
+		pizza.getIngredients().clear();
 		pizzaService.delete(pizza);
 		return "redirect:/pizzas";
 	}

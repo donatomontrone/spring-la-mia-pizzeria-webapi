@@ -58,7 +58,7 @@ public class IngredientController {
 		ingredientService.save(ingredient);
 		if (ingredient.getPizzas() != null) {
 			for (Pizza p : ingredient.getPizzas()) {
-				Pizza tmpP = pizzaService.findByIdwithIngredients(p.getId()).get();
+				Pizza tmpP = pizzaService.findById(p.getId()).get();
 				tmpP.addIngredient(ingredient);
 				pizzaService.save(tmpP);
 			}
@@ -69,7 +69,7 @@ public class IngredientController {
 	
 	@GetMapping("/edit/{id}")
 	public String edit(Model model, @PathVariable Integer id) {
-		Optional<Ingredient> optIngredient = ingredientService.findByIdwithPizzas(id);
+		Optional<Ingredient> optIngredient = ingredientService.findById(id);
 		Ingredient ingredient = optIngredient.get();
 		List<Pizza> pizzas = pizzaService.findAll();
 		
@@ -93,7 +93,7 @@ public class IngredientController {
 		ingredientService.save(ingredient);
 		
 		for (Pizza pizza : pizzaService.findAll()) {
-			Pizza tmpP = pizzaService.findByIdwithIngredients(pizza.getId()).get();
+			Pizza tmpP = pizzaService.findById(pizza.getId()).get();
 			tmpP.removeIngredient(ingredient);
 			pizzaService.save(tmpP);
 		
@@ -101,7 +101,7 @@ public class IngredientController {
 		
 		if (ingredient.getPizzas() != null) {
 			for (Pizza p : ingredient.getPizzas()) {
-				Pizza tmpP = pizzaService.findByIdwithIngredients(p.getId()).get();
+				Pizza tmpP = pizzaService.findById(p.getId()).get();
 				tmpP.addIngredient(ingredient);
 				pizzaService.save(tmpP);
 			}
@@ -111,11 +111,11 @@ public class IngredientController {
 	
 	@GetMapping("/delete/{id}")
 	public String delete(@PathVariable("id") Integer id) {
-		Optional<Ingredient> optIngredient = ingredientService.findByIdwithPizzas(id);
+		Optional<Ingredient> optIngredient = ingredientService.findById(id);
 		Ingredient ingredient = optIngredient.get();
 		
 		for (Pizza pizza : ingredient.getPizzas()) {
-			Pizza tmpP = pizzaService.findByIdwithIngredients(pizza.getId()).get();
+			Pizza tmpP = pizzaService.findById(pizza.getId()).get();
 			tmpP.removeIngredient(ingredient);
 			pizzaService.save(tmpP);
 		}
