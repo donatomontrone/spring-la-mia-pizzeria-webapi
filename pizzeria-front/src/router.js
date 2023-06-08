@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomePage from "./pages/HomePage.vue";
 import PizzaIndex from "./pages/PizzaIndex.vue";
+import PizzaCreate from "./pages/PizzaCreate.vue";
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -11,10 +12,14 @@ const router = createRouter({
         },
         {
             path: '/pizzas',
-            name: 'pizzas',
+            name: 'index',
             component: PizzaIndex,
-            query: ""
         },
+        {
+            path: '/pizzas/create',
+            name: 'create',
+            component: PizzaCreate,
+        }
     ]
 });
 export { router }

@@ -1,4 +1,5 @@
 <template>
+    <router-link to="/pizzas/create">Aggiungi una pizza</router-link>
     <PizzaContainer />
 </template>
 <script>
